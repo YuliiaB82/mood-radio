@@ -1,3 +1,5 @@
+The general idea of a project lies in that every colour represent specific emotion (e.g. orange colour corresponds to energy and creativity). With a knowledge of emotion which is associated with specific colour, it is possible to connect music tracks or playlists which could help the user to improve study/work activities.
+
 # radio
 
 visuilization 👉🏻 https://yuliiablahovistna931635.invisionapp.com/freehand/my-radio-jZYYHXM47
