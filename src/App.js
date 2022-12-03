@@ -1,4 +1,7 @@
 import "./App.css";
+import "./styles.css";
+import { Player } from "./Player";
+import { useState } from "react";
 import { CardHolder } from "./components/cards-holder";
 
 const moodList = [
@@ -12,9 +15,13 @@ const moodList = [
   { emotion: "Love & Compassion", color: "#F5B0CB" },
 ];
 
-function App() {
+export default function App() {
+  const [trackName, useTrackName] = useState("Mind Off (feat. Kudu Blue)");
+  const [albumName, useAlbumName] = useState("by Cosmso's Midnight ");
   return (
     <div className="App">
+      <h1 class="mt-5"> MOOD RADIO </h1>
+      <Player trackName={trackName} albumName={albumName} />
       <CardHolder
         cards={moodList.map((item) => {
           return {
@@ -26,5 +33,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
