@@ -3,6 +3,14 @@ import "./styles.css";
 import Button from "react-bootstrap/Button";
 
 export function Player(props) {
+  function Play(event) {
+    event.preventDefault();
+    alert("Play music coming soon..");
+  }
+  function Skip(event) {
+    event.preventDefault();
+    alert("Play skip coming soon..");
+  }
   return (
     <div className="radio-player p-4 shadow">
       <div className="radio-track row">
@@ -19,10 +27,19 @@ export function Player(props) {
         </div>
 
         <div className="col-md-4 radio-control pt-5">
-          <span className="material-symbols-outlined fa-8x">play_circle</span>
-          <span className="material-symbols-outlined fa-4x skip-next mt-4">
-            skip_next
-          </span>
+          <button className="play">
+            <span className="material-symbols-outlined fa-8x" onClick={Play}>
+              play_circle
+            </span>
+          </button>
+          <button className="skip">
+            <span
+              className="material-symbols-outlined fa-4x skip-next mt-4"
+              onClick={Skip}
+            >
+              skip_next
+            </span>
+          </button>
           <input type="range" className="form-range" id="customRange1" />
         </div>
       </div>

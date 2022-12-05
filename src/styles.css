@@ -5,7 +5,7 @@ body {
 
 .radio-player {
   margin: 40px 20px;
-  background: linear-gradient(0, #f6f6f6 0%, #fff 100%);
+  background: #f6f6f6;
   border-radius: 24px;
 }
 .radio-track-img {
@@ -43,4 +43,20 @@ h1 {
   font-family: "Monoton", cursive;
   font-size: 56px;
   color: grey;
+}
+.play {
+  border: none;
+  background: #f6f6f6;
+  color: grey;
+  width: 200px;
+  height: 130px;
+  border-radius: 50%;
+}
+.skip {
+  border: none;
+  background: #f6f6f6;
+  color: grey;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
 }
