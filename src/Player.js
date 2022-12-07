@@ -1,6 +1,5 @@
 import React from "react";
 import "./styles.css";
-import Button from "react-bootstrap/Button";
 
 export function Player(props) {
   function Play(event) {
