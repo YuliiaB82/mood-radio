@@ -1,5 +1,4 @@
 import React from "react";
-import "./styles.css";
 
 export function Player(props) {
   function Play(event) {

@@ -1,9 +1,11 @@
-import "./main-screen.css";
-import { Player } from "./Player";
 import { useState } from "react";
-import { CardHolder } from "./components/cards-holder";
+import { CardHolder } from "./cards-holder";
+import { Player } from "./player";
+import "./main-screen.css";
 
-export function MainScreen() {
+const moodList = [];
+export function MainScreen(props) {
+  alert(props.token);
   const [trackName, useTrackName] = useState("Mind Off (feat. Kudu Blue)");
   const [albumName, useAlbumName] = useState("by Cosmso's Midnight ");
   return (
