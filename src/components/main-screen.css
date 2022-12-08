@@ -40,18 +40,8 @@ h1 {
   color: grey;
 }
 .play {
-  border: none;
-  background: #f6f6f6;
-  color: grey;
-  width: 200px;
-  height: 130px;
-  border-radius: 50%;
+  cursor: pointer;
 }
 .skip {
-  border: none;
-  background: #f6f6f6;
-  color: grey;
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
+  cursor: pointer;
 }

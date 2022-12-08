@@ -63,11 +63,14 @@ exports.authCallback = async (req, res) => {
 
 exports.changeDevice = async (req, resp) => {
   console.log("Put is " + req.body.device_ids);
+  if (!req.headers.authorization) {
+    return res.status(403).json({ error: "No credentials sent!" });
+  }
   const transferResult = await fetch("https://api.spotify.com/v1/me/player", {
     method: "PUT",
     cache: "no-cache",
     headers: {
-      Authorization: "Bearer " + req.body.token,
+      Authorization: req.headers.authorization,
       Accept: "application/json",
       "Content-Type": "application/json",
     },
