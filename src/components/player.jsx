@@ -5,6 +5,7 @@ import {
   faCirclePlay,
   faCirclePause,
 } from "@fortawesome/free-solid-svg-icons";
+import "./main-screen.css";
 
 export function Player({ track, isPaused, onToggleClick, onNextClick }) {
   return (
@@ -24,11 +25,13 @@ export function Player({ track, isPaused, onToggleClick, onNextClick }) {
             icon={isPaused ? faCirclePlay : faCirclePause}
             onClick={onToggleClick}
             size="8x"
+            className="play-icon"
           />
           <FontAwesomeIcon
             icon={faForwardStep}
             onClick={onNextClick}
-            size="6x"
+            size="4x"
+            className="next-icon"
           />
 
           <input type="range" className="form-range" id="customRange1" />
