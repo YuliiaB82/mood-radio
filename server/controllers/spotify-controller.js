@@ -61,21 +61,26 @@ exports.authCallback = async (req, res) => {
   }
 };
 
-exports.changeDevice = async (req, resp) => {
-  console.log("Put is " + req.body.device_ids);
+exports.play = async (req, resp) => {
+  console.log("Put is " + req.body.deviceId);
   if (!req.headers.authorization) {
-    return res.status(403).json({ error: "No credentials sent!" });
+    return resp.status(403).json({ error: "No credentials sent!" });
   }
-  const transferResult = await fetch("https://api.spotify.com/v1/me/player", {
-    method: "PUT",
-    cache: "no-cache",
-    headers: {
-      Authorization: req.headers.authorization,
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ device_ids: req.body.device_ids }),
-  });
+  const device = req.body.deviceId;
+  const uri = req.body.spotifyUri;
+  const transferResult = await fetch(
+    `https://api.spotify.com/v1/me/player/play?device_id=${device}`,
+    {
+      method: "PUT",
+      cache: "no-cache",
+      headers: {
+        Authorization: req.headers.authorization,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ uris: [uri] }),
+    }
+  );
 
   if (transferResult.ok !== true) {
     const respText = await transferResult.text();

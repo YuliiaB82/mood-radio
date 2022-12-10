@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { CardHolder } from "./cards-holder";
 import { Player } from "./player";
-import { wait } from "../helper";
+import { play, wait } from "../helper";
 import "./main-screen.css";
 
 const moodList = [];
-const track = {
+const defaultTrack = {
   name: "loading ..",
   album: {
     name: "",
@@ -17,13 +17,14 @@ const track = {
   },
   artists: [{ name: "" }],
 };
+const defaultUri = "spotify:track:5i3pIDBLDc1tSCyVxxo151";
 
 export function MainScreen({ token }) {
   const [playbackReady, setPlaybackReady] = useState(false);
   const [player, setPlayer] = useState(undefined);
   const [isPaused, setPaused] = useState(true);
-  const [currentTrack, setTrack] = useState(track);
-
+  const [currentTrack, setTrack] = useState(defaultTrack);
+  const [deviceId, setDeviceId] = useState();
   useEffect(() => {
     const script = document.createElement("script");
     script.src = "https://sdk.scdn.co/spotify-player.js";
@@ -47,15 +48,9 @@ export function MainScreen({ token }) {
     newPlayer.addListener("ready", async ({ device_id }) => {
       console.log("Ready with Device ID", device_id);
       // "Device not found" error workaround
-      await wait(3000);
-      await fetch("/api/changeDevice", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + token,
-        },
-        body: JSON.stringify({ device_ids: [device_id], token }),
-      });
+      await wait(1900);
+      setDeviceId(device_id);
+      play(token, device_id, defaultUri);
     });
 
     newPlayer.addListener("not_ready", ({ device_id }) => {

@@ -9,7 +9,7 @@ router.get("/moods", moodController.getMoods);
 router.get("/auth/login", spotifyController.login);
 router.get("/auth/callback", spotifyController.authCallback);
 const jsonParser = bodyParser.json();
-router.put("/changeDevice", jsonParser, spotifyController.changeDevice);
+router.put("/play", jsonParser, spotifyController.play);
 router.get("/search/:mood", spotifyController.search);
 app.use("/api", router);
 app.listen(5000);
