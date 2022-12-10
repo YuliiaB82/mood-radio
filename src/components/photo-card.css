@@ -53,7 +53,7 @@
   position: absolute;
   bottom: 0;
   right: 0;
-  color: grey;
+  color: white;
   opacity: 0;
 }
 .photo-card:hover .photo-card-status-icon {
