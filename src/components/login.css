@@ -4,6 +4,10 @@
   color: grey;
   text-decoration: none;
 }
+.LoginSpotifyLink:hover {
+  color: rgb(245, 24, 190);
+}
+
 .Login {
   width: 100vw;
   height: 100vh;

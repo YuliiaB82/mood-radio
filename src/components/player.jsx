@@ -11,10 +11,10 @@ export function Player({ track, isPaused, onToggleClick, onNextClick }) {
   return (
     <div className="radio-player p-4 shadow">
       <div className="radio-track row">
-        <div className="col-md-4">
+        <div className="col-md-3">
           <img src={track.album.images[0].url} className="radio-track-img" />
         </div>
-        <div className="col-md-4 pt-4">
+        <div className="col-md-5 pt-4">
           <strong className="song-name">{track.name}</strong>
           <br />
           <small className="album-name">{track.album.name}</small>

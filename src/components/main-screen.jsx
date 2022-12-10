@@ -47,7 +47,7 @@ export function MainScreen({ token }) {
     newPlayer.addListener("ready", async ({ device_id }) => {
       console.log("Ready with Device ID", device_id);
       // "Device not found" error workaround
-      await wait(1900);
+      await wait(3000);
       await fetch("/api/changeDevice", {
         method: "PUT",
         headers: {
