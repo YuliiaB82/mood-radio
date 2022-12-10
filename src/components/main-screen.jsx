@@ -17,7 +17,6 @@ const defaultTrack = {
   },
   artists: [{ name: "" }],
 };
-const defaultUri = "spotify:track:5i3pIDBLDc1tSCyVxxo151";
 
 export function MainScreen({ token }) {
   const [playbackReady, setPlaybackReady] = useState(false);
@@ -50,7 +49,7 @@ export function MainScreen({ token }) {
       // "Device not found" error workaround
       await wait(1900);
       setDeviceId(device_id);
-      play(token, device_id, defaultUri);
+      play(token, device_id);
     });
 
     newPlayer.addListener("not_ready", ({ device_id }) => {

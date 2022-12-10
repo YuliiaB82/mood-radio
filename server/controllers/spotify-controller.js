@@ -67,7 +67,8 @@ exports.play = async (req, resp) => {
     return resp.status(403).json({ error: "No credentials sent!" });
   }
   const device = req.body.deviceId;
-  const uri = req.body.spotifyUri;
+  const spotifySongs = req.body.spotifySongs;
+  const spotifyAlbum = req.body.spotifyAlbum;
   const transferResult = await fetch(
     `https://api.spotify.com/v1/me/player/play?device_id=${device}`,
     {
@@ -78,7 +79,7 @@ exports.play = async (req, resp) => {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ uris: [uri] }),
+      body: JSON.stringify({ uris: spotifySongs, context_uri: spotifyAlbum }),
     }
   );
 
