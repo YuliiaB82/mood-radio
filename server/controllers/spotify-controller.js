@@ -101,7 +101,7 @@ exports.search = async (req, res, next) => {
   const searchResult = await fetch(
     "https://api.spotify.com/v1/search?q=" +
       req.params.mood +
-      "&type=playlist&limit=8",
+      "&type=playlist&limit=9",
     {
       method: "GET",
       headers: {

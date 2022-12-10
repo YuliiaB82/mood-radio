@@ -19,7 +19,7 @@ export function PhotoCard(props) {
               className="photo-card-status-icon"
             />
           ) : (
-            <></>
+            ""
           )}
           <div
             style={{

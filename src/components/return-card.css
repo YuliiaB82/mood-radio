@@ -1,0 +1,16 @@
+.return-card-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-basis: 20%;
+}
+.return-card-icon {
+  cursor: pointer;
+  color: #b3b0ad;
+  transform: rotate(0deg);
+  -o-transition: transform 1s ease-in-out;
+  -moz-transition: transform 1s ease-in-out;
+  -webkit-transition: transform 1s ease-in-out;
+}
+.return-card-icon:hover {
+  transform: rotate(-180deg);
+}

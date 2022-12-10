@@ -1,7 +1,7 @@
 .photo-card-wrapper {
   display: flex;
   justify-content: center;
-  flex-basis: 25%;
+  flex-basis: 20%;
 }
 .photo-card {
   background-color: #fafafa;
@@ -57,6 +57,7 @@
 }
 .photo-card:hover .photo-card-status-icon {
   animation: show-status 0.3s ease-in-out forwards;
+  -webkit-animation: show-status 0.3s ease-in-out forwards;
 }
 @keyframes show-status {
   from {

@@ -110,6 +110,11 @@ export function MainScreen({ token }) {
       setPlayList(cardId);
     }
   };
+  const handleReturnClick = async () => {
+    const defaultMoods = await getMoods();
+    setCardsData(defaultMoods);
+    setMood(undefined);
+  };
 
   return (
     <div className="main-screen-container">
@@ -125,7 +130,9 @@ export function MainScreen({ token }) {
       <CardHolder
         cards={cardsData}
         activePlaylist={playList}
+        activeMood={mood}
         onClick={handleCardClick}
+        onReturnClick={handleReturnClick}
       />
     </div>
   );

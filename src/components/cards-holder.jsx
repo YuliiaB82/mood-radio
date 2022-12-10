@@ -1,4 +1,5 @@
 import { PhotoCard } from "./photo-card";
+import { ReturnCard } from "./return-card";
 import "./cards-holder.css";
 
 export function CardHolder(props) {
@@ -15,6 +16,7 @@ export function CardHolder(props) {
           onClick={props.onClick}
         />
       ))}
+      {props.activeMood ? <ReturnCard onClick={props.onReturnClick} /> : ""}
     </div>
   );
 }
