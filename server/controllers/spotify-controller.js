@@ -113,7 +113,10 @@ exports.search = async (req, res, next) => {
   );
   if (searchResult.ok) {
     const resultJson = await searchResult.json();
-    res.json(resultJson);
+    const cardItems = resultJson.playlists.items.map((i) => {
+      return { id: i.uri, title: i.name, image: i.images[0].url };
+    });
+    res.json(cardItems);
   } else {
     const respText = await searchResult.text();
     res.status(searchResult.status).send(respText);

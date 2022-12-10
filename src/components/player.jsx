@@ -7,7 +7,14 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "./main-screen.css";
 
-export function Player({ track, isPaused, onToggleClick, onNextClick }) {
+export function Player({
+  track,
+  isPaused,
+  volume,
+  onToggleClick,
+  onNextClick,
+  onVolumeChange,
+}) {
   return (
     <div className="radio-player p-4 shadow">
       <div className="radio-track row">
@@ -34,7 +41,15 @@ export function Player({ track, isPaused, onToggleClick, onNextClick }) {
             className="next-icon"
           />
 
-          <input type="range" className="form-range" id="customRange1" />
+          <input
+            type="range"
+            className="form-range"
+            min="0"
+            max="1"
+            step="0.1"
+            value={volume}
+            onChange={onVolumeChange}
+          />
         </div>
       </div>
     </div>

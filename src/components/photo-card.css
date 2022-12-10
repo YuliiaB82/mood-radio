@@ -1,9 +1,9 @@
-.photoCardWrapper {
+.photo-card-wrapper {
   display: flex;
   justify-content: center;
   flex-basis: 25%;
 }
-.photoCard {
+.photo-card {
   background-color: #fafafa;
   /* 1cm - 3px */
   width: 213px;
@@ -13,18 +13,59 @@
   cursor: pointer;
   border-radius: 2px;
 }
-.photo {
+.photo-card-photo {
   background-color: #000000;
   background-size: cover;
   width: 183px;
   height: 183px;
-  margin: auto;
+  margin: 0 auto;
+  position: relative;
 }
-.description {
+.photo-card-color {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000000;
+  animation: developer 3s ease-in-out forwards;
+}
+@keyframes developer {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+.photo-card-description {
   width: 183px;
   margin: 0 auto;
   margin-top: 10px;
   text-align: center;
   font-size: 1.1em;
   font-family: Trebuchet MS, sans-serif;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.photo-card-status-icon {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  color: grey;
+  opacity: 0;
+}
+.photo-card:hover .photo-card-status-icon {
+  animation: show-status 0.3s ease-in-out forwards;
+}
+@keyframes show-status {
+  from {
+    bottom: -5px;
+    opacity: 0;
+  }
+  to {
+    bottom: 0;
+    opacity: 0.8;
+  }
 }

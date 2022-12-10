@@ -1,10 +1,15 @@
 import { useState, useEffect } from "react";
 import { CardHolder } from "./cards-holder";
 import { Player } from "./player";
-import { play, wait } from "../helper";
+import {
+  getMoods,
+  play,
+  searchPlaylists,
+  wait,
+  defaultPlaylist,
+} from "../helper";
 import "./main-screen.css";
 
-const moodList = [];
 const defaultTrack = {
   name: "loading ..",
   album: {
@@ -21,16 +26,26 @@ const defaultTrack = {
 export function MainScreen({ token }) {
   const [playbackReady, setPlaybackReady] = useState(false);
   const [player, setPlayer] = useState(undefined);
+  const [volume, setVolume] = useState(0.5);
   const [isPaused, setPaused] = useState(true);
   const [currentTrack, setTrack] = useState(defaultTrack);
   const [deviceId, setDeviceId] = useState();
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://sdk.scdn.co/spotify-player.js";
-    script.async = true;
+  const [cardsData, setCardsData] = useState([]);
+  const [mood, setMood] = useState(undefined);
+  const [playList, setPlayList] = useState(defaultPlaylist);
 
-    document.body.appendChild(script);
-    window.onSpotifyWebPlaybackSDKReady = () => setPlaybackReady(true);
+  useEffect(() => {
+    const statUp = async () => {
+      const script = document.createElement("script");
+      script.src = "https://sdk.scdn.co/spotify-player.js";
+      script.async = true;
+
+      document.body.appendChild(script);
+      window.onSpotifyWebPlaybackSDKReady = () => setPlaybackReady(true);
+      const defaultMoods = await getMoods();
+      setCardsData(defaultMoods);
+    };
+    statUp();
   }, []);
 
   useEffect(() => {
@@ -41,7 +56,7 @@ export function MainScreen({ token }) {
       getOAuthToken: (cb) => {
         cb(token);
       },
-      volume: 0.5,
+      volume,
     });
     setPlayer(newPlayer);
     newPlayer.addListener("ready", async ({ device_id }) => {
@@ -74,23 +89,43 @@ export function MainScreen({ token }) {
   const handleNextClick = () => {
     player.nextTrack();
   };
+  const handleVolumeChange = (e) => {
+    const newVolume = e.target.value;
+    player.setVolume(newVolume);
+    setVolume(newVolume);
+  };
+  const handleCardClick = async (cardId) => {
+    if (!mood) {
+      const selectedMood = cardsData.find((m) => m.id === cardId);
+      const playlists = await searchPlaylists(token, selectedMood.title);
+      if (playlists.length < 1) return;
+      for (let i = 0; i < playlists.length; i++) {
+        playlists[i].color = cardsData[i].color;
+      }
+
+      setMood(selectedMood);
+      setCardsData(playlists);
+    } else {
+      play(token, deviceId, cardId);
+      setPlayList(cardId);
+    }
+  };
 
   return (
-    <div>
-      <h1 className="mt-5"> MOOD RADIO </h1>
+    <div className="main-screen-container">
+      <h1> MOOD RADIO </h1>
       <Player
         track={currentTrack}
         isPaused={isPaused}
+        volume={volume}
         onToggleClick={handleToggleClick}
         onNextClick={handleNextClick}
+        onVolumeChange={handleVolumeChange}
       />
       <CardHolder
-        cards={moodList.map((item) => {
-          return {
-            title: item.emotion,
-            color: item.color,
-          };
-        })}
+        cards={cardsData}
+        activePlaylist={playList}
+        onClick={handleCardClick}
       />
     </div>
   );

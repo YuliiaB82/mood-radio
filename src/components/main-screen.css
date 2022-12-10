@@ -1,8 +1,13 @@
+.main-screen-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+}
 .radio-player {
-  margin: 40px 20px;
+  width: 80%;
   background: #f6f6f6;
   border-radius: 24px;
-  max-width: 1100px;
   margin: 0 auto;
   display: block;
 }
