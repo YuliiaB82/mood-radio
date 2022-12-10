@@ -5,15 +5,15 @@
   gap: 1rem;
 }
 .radio-player {
-  width: 80%;
+  width: 90%;
   background: #f6f6f6;
   border-radius: 24px;
   margin: 0 auto;
   display: block;
 }
 .radio-track-img {
-  width: 220px;
-  height: 220px;
+  width: 200px;
+  height: 200px;
   border-radius: 12px;
 }
 .radio-track {
@@ -38,7 +38,7 @@
   display: block;
   transform: rotate(270deg);
   margin-top: 50px;
-  margin-left: -20px;
+  margin-left: -10px;
 }
 
 h1 {
@@ -46,6 +46,7 @@ h1 {
   font-family: "Monoton", cursive;
   font-size: 56px;
   color: grey;
+  margin-top: 10px;
 }
 
 .play-icon {
@@ -56,4 +57,30 @@ h1 {
   cursor: pointer;
   margin-top: 30px;
   padding-right: 10px;
+}
+
+@media (max-width: 820px) {
+  .radio-track-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 4px;
+  }
+  .song-name {
+    font-size: 24px;
+  }
+  .album-name {
+    font-size: 16px;
+  }
+  .play-icon {
+    width: 70%;
+    padding-right: 20px;
+  }
+  .next-icon {
+    width: 40%;
+    margin-top: 30px;
+    padding-right: 10px;
+  }
+  .form-range {
+    display: none;
+  }
 }
