@@ -17,6 +17,9 @@ getTrack(`Yellow`, `Coldplay`);
 ## to start
 
 npm i -g netlify-cli
+
 clone repo
+
 npm i
+
 npm run dev
