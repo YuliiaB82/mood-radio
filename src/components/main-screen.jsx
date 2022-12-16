@@ -56,7 +56,7 @@ export function MainScreen({ token }) {
       getOAuthToken: (cb) => {
         cb(token);
       },
-      volume,
+      volume: 0.5,
     });
     setPlayer(newPlayer);
     newPlayer.addListener("ready", async ({ device_id }) => {

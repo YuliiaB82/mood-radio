@@ -19,7 +19,11 @@ export function Player({
     <div className="radio-player p-4 shadow">
       <div className="radio-track row">
         <div className="col-md-3">
-          <img src={track.album.images[0].url} className="radio-track-img" />
+          <img
+            src={track.album.images[0].url}
+            className="radio-track-img"
+            alt="album img"
+          />
         </div>
         <div className="col-md-5 pt-4">
           <strong className="song-name">{track.name}</strong>
