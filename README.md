@@ -14,7 +14,7 @@ function getTrack (trackName, artistName) {
 getTrack(`Yellow`, `Coldplay`);
 ```
 
-## to start
+# to start
 
 npm i -g netlify-cli
 
