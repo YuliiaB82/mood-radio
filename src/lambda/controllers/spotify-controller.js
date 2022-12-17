@@ -43,31 +43,32 @@ exports.login = (req, res) => {
 
 exports.authCallback = async (req, res) => {
   const code = req.query.code;
-  const result = await axios({
-    method: "post",
-    url: "https://accounts.spotify.com/api/token",
-    headers: {
-      Authorization:
-        "Basic " +
-        new Buffer(spotify_client_id + ":" + spotify_client_secret).toString(
-          "base64"
-        ),
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    data:
-      "grant_type=authorization_code&redirect_uri=" +
-      getRedirectUrl(req) +
-      "&code=" +
-      code,
-  });
-  if (result.data && result.data.access_token) {
+  try {
+    const result = await axios({
+      method: "post",
+      url: "https://accounts.spotify.com/api/token",
+      headers: {
+        Authorization:
+          "Basic " +
+          new Buffer(spotify_client_id + ":" + spotify_client_secret).toString(
+            "base64"
+          ),
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      data:
+        "grant_type=authorization_code&redirect_uri=" +
+        getRedirectUrl(req) +
+        "&code=" +
+        code,
+    });
     res.cookie("token", result.data.access_token, {
       secure: true,
       maxAge: 3600,
     });
     res.redirect("/");
-  } else {
-    res.sendStatus(result.status);
+  } catch (e) {
+    console.log(e);
+    res.status(500).send(e.message);
   }
 };
 
