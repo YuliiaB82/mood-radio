@@ -1,3 +1,4 @@
+const axios = require("axios");
 require("dotenv").config();
 
 const spotify_client_id = process.env.SPOTIFY_CLIENT_ID;
@@ -42,25 +43,28 @@ exports.login = (req, res) => {
 
 exports.authCallback = async (req, res) => {
   const code = req.query.code;
-  const result = await fetch("https://accounts.spotify.com/api/token", {
+  const result = await axios({
     method: "post",
-    headers: new Headers({
+    url: "https://accounts.spotify.com/api/token",
+    headers: {
       Authorization:
         "Basic " +
         new Buffer(spotify_client_id + ":" + spotify_client_secret).toString(
           "base64"
         ),
       "Content-Type": "application/x-www-form-urlencoded",
-    }),
-    body:
+    },
+    data:
       "grant_type=authorization_code&redirect_uri=" +
       getRedirectUrl(req) +
       "&code=" +
       code,
   });
-  const jsonText = await result.json();
-  if (result.ok) {
-    res.cookie("token", jsonText.access_token, { secure: true, maxAge: 3600 });
+  if (result.data && result.data.access_token) {
+    res.cookie("token", result.data.access_token, {
+      secure: true,
+      maxAge: 3600,
+    });
     res.redirect("/");
   } else {
     res.sendStatus(result.status);
@@ -75,26 +79,23 @@ exports.play = async (req, resp) => {
   const device = req.body.deviceId;
   const spotifySongs = req.body.spotifySongs;
   const spotifyAlbum = req.body.spotifyAlbum;
-  const transferResult = await fetch(
-    `https://api.spotify.com/v1/me/player/play?device_id=${device}`,
-    {
+  try {
+    const transferResult = await axios({
       method: "PUT",
+      url: `https://api.spotify.com/v1/me/player/play?device_id=${device}`,
       cache: "no-cache",
       headers: {
         Authorization: req.headers.authorization,
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ uris: spotifySongs, context_uri: spotifyAlbum }),
-    }
-  );
+      data: { uris: spotifySongs, context_uri: spotifyAlbum },
+    });
 
-  if (transferResult.ok !== true) {
-    const respText = await transferResult.text();
-    console.log(respText);
-    resp.status(transferResult.status).send(respText);
-  } else {
     resp.sendStatus(transferResult.status);
+  } catch (e) {
+    console.log(e);
+    resp.status(500).send(e.message);
   }
 };
 
@@ -104,27 +105,24 @@ exports.search = async (req, res, next) => {
   }
 
   console.log("Mood: " + req.params.mood);
-  const searchResult = await fetch(
-    "https://api.spotify.com/v1/search?q=" +
-      req.params.mood +
-      "&type=playlist&limit=9",
-    {
+  try {
+    const searchResult = await axios({
       method: "GET",
+      url:
+        "https://api.spotify.com/v1/search?q=" +
+        req.params.mood +
+        "&type=playlist&limit=9",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
         Authorization: req.headers.authorization,
       },
-    }
-  );
-  if (searchResult.ok) {
-    const resultJson = await searchResult.json();
-    const cardItems = resultJson.playlists.items.map((i) => {
+    });
+    const cardItems = searchResult.data.playlists.items.map((i) => {
       return { id: i.uri, title: i.name, image: i.images[0].url };
     });
     res.json(cardItems);
-  } else {
-    const respText = await searchResult.text();
-    res.status(searchResult.status).send(respText);
+  } catch (e) {
+    res.status(500).send(e.message);
   }
 };
