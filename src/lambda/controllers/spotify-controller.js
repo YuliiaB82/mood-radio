@@ -1,8 +1,8 @@
 require("dotenv").config();
 
-const redirectUri = process.env.SPOTIFY_REDIRECT_URL;
 const spotify_client_id = process.env.SPOTIFY_CLIENT_ID;
 const spotify_client_secret = process.env.SPOTIFY_CLIENT_SECRET;
+const isLocal = process.env.IS_LOCAL_HOST;
 
 const generateRandomString = function (length) {
   let text = "";
@@ -15,6 +15,12 @@ const generateRandomString = function (length) {
   return text;
 };
 
+const getRedirectUrl = function (req) {
+  return `${isLocal ? "http" : req.protocol}://${req.get(
+    "host"
+  )}/.netlify/functions/api/auth/callback`;
+};
+
 exports.login = (req, res) => {
   const scope =
     "streaming user-read-email user-read-private user-read-playback-state user-read-playback-position user-modify-playback-state";
@@ -24,7 +30,7 @@ exports.login = (req, res) => {
     response_type: "code",
     client_id: spotify_client_id,
     scope: scope,
-    redirect_uri: redirectUri,
+    redirect_uri: getRedirectUrl(req),
     state: state,
   });
 
@@ -48,7 +54,7 @@ exports.authCallback = async (req, res) => {
     }),
     body:
       "grant_type=authorization_code&redirect_uri=" +
-      redirectUri +
+      getRedirectUrl(req) +
       "&code=" +
       code,
   });
