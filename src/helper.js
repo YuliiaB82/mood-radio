@@ -5,10 +5,11 @@ export function wait(timeout) {
 }
 
 export const defaultPlaylist = "spotify:playlist:6jTIqtJmJgrHyTS0rh1t71";
+export async function playDefaultPlaylist(token, deviceId) {
+  await play(token, deviceId, defaultPlaylist);
+}
 
 export async function play(token, deviceId, spotifyAlbum, spotifySongs) {
-  if (!spotifyAlbum && !spotifySongs) spotifyAlbum = defaultPlaylist;
-
   await fetch("/.netlify/functions/api/play", {
     method: "PUT",
     headers: {

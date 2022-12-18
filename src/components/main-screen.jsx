@@ -64,7 +64,7 @@ export function MainScreen({ token }) {
       // "Device not found" error workaround
       await wait(1900);
       setDeviceId(device_id);
-      play(token, device_id);
+      defaultPlaylist(token, device_id);
     });
 
     newPlayer.addListener("not_ready", ({ device_id }) => {
