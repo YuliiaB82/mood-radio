@@ -9,7 +9,7 @@ export const defaultPlaylist = "spotify:playlist:6jTIqtJmJgrHyTS0rh1t71";
 export async function play(token, deviceId, spotifyAlbum, spotifySongs) {
   if (!spotifyAlbum && !spotifySongs) spotifyAlbum = defaultPlaylist;
 
-  await fetch("/api/play", {
+  await fetch("/.netlify/functions/api/play", {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -20,7 +20,7 @@ export async function play(token, deviceId, spotifyAlbum, spotifySongs) {
 }
 
 export async function getMoods() {
-  const moodsRequest = await fetch("/api/moods", {
+  const moodsRequest = await fetch("/.netlify/functions/api/moods", {
     headers: {
       "Content-Type": "application/json",
     },
@@ -33,7 +33,7 @@ export async function getMoods() {
 }
 
 export async function searchPlaylists(token, title) {
-  const searchRequest = await fetch(`/api/search/${title}`, {
+  const searchRequest = await fetch(`/.netlify/functions/api/search/${title}`, {
     headers: {
       "Content-Type": "application/json",
       Authorization: "Bearer " + token,

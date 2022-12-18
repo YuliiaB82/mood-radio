@@ -39,9 +39,9 @@ export function MainScreen({ token }) {
       const script = document.createElement("script");
       script.src = "https://sdk.scdn.co/spotify-player.js";
       script.async = true;
-
       document.body.appendChild(script);
       window.onSpotifyWebPlaybackSDKReady = () => setPlaybackReady(true);
+
       const defaultMoods = await getMoods();
       setCardsData(defaultMoods);
     };
@@ -56,7 +56,7 @@ export function MainScreen({ token }) {
       getOAuthToken: (cb) => {
         cb(token);
       },
-      volume,
+      volume: 0.5,
     });
     setPlayer(newPlayer);
     newPlayer.addListener("ready", async ({ device_id }) => {
