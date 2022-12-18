@@ -5,6 +5,7 @@ import {
   getMoods,
   play,
   searchPlaylists,
+  playDefaultPlaylist,
   wait,
   defaultPlaylist,
 } from "../helper";
@@ -64,7 +65,7 @@ export function MainScreen({ token }) {
       // "Device not found" error workaround
       await wait(1900);
       setDeviceId(device_id);
-      defaultPlaylist(token, device_id);
+      playDefaultPlaylist(token, device_id);
     });
 
     newPlayer.addListener("not_ready", ({ device_id }) => {
